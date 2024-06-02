@@ -40,6 +40,20 @@ class App extends Component {
     return key === "from" ? fromAmt : toAmt
   }
 
+  setAmount = (amt, field) => {
+    if(field === "from") {
+      this.setState({
+        fromAmt: amt,
+        toAmt: null
+      })
+    }
+    else {
+      this.setState({
+        fromAmt: null,
+        toAmt: amt
+      })
+    }
+  }
   render() {
     return (
       <div className="currency-converter">
@@ -47,13 +61,13 @@ class App extends Component {
           <CurrencyInput 
             symbol={this.state.from} 
             selectSymbol={sym => this.setState({from: sym})}
-            selectAmount={amt => this.setState({fromAmt: amt, toAmt: null})}
+            selectAmount={amt => this.setAmount(amt, "from")}
             amount={this.computeAmount("from")}
           />
           <CurrencyInput 
             symbol={this.state.to} 
             selectSymbol={sym => this.setState({to: sym})}
-            selectAmount={amt => this.setState({fromAmt: null, toAmt: amt})}
+            selectAmount={amt => this.setAmount(amt, "to")}
             amount={this.computeAmount("to")}
           />
         </StrictMode>
