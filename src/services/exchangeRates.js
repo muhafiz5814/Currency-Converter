@@ -15,7 +15,6 @@ const exchangeRates = async (base, symbol) => {
     try {
       const response = await fetch(url, options);
       const result = await response.json();
-      console.log(result.rates[symbol]);
       return Promise.resolve({
         rate: result.rates[symbol]
       })

@@ -1,5 +1,5 @@
 import React, {Component, StrictMode} from "react";
-import CurrencyInput from "./components/currencyInput";
+import CurrencyInput from "./components/CurrencyInput";
 import exchangeRates from "./services/exchangeRates";
 
 class App extends Component {
@@ -29,6 +29,17 @@ class App extends Component {
     })
   }
 
+  computeAmount = (key) => {
+    let {fromAmt, toAmt} = this.state
+
+    if(fromAmt !== null)
+      toAmt = parseFloat(this.state.fromAmt * this.state.rate).toFixed(2)
+    else 
+      fromAmt = parseFloat(this.state.toAmt / this.state.rate).toFixed(2)
+
+    return key === "from" ? fromAmt : toAmt
+  }
+
   render() {
     return (
       <div className="currency-converter">
@@ -36,14 +47,14 @@ class App extends Component {
           <CurrencyInput 
             symbol={this.state.from} 
             selectSymbol={sym => this.setState({from: sym})}
-            selectAmount={amt => this.setState({fromAmt: amt})}
-            amount={this.state.fromAmt}
+            selectAmount={amt => this.setState({fromAmt: amt, toAmt: null})}
+            amount={this.computeAmount("from")}
           />
           <CurrencyInput 
             symbol={this.state.to} 
             selectSymbol={sym => this.setState({to: sym})}
-            selectAmount={amt => this.setState({toAmt: amt})}
-            amount={parseFloat(this.state.fromAmt * this.state.rate).toFixed(2)}
+            selectAmount={amt => this.setState({fromAmt: null, toAmt: amt})}
+            amount={this.computeAmount("to")}
           />
         </StrictMode>
       </div>
