@@ -1,11 +1,11 @@
 import React from "react";
 
-const CurrencyInput = () => {
+const CurrencyInput = ({symbol, selectSymbol}) => {
   return (
     <>
       <div className="field">
         <div className="currency-picker">
-          <select>
+          <select value={symbol} onChange={evt => selectSymbol(evt.target.value)}>
             <option>USD</option>
             <option>INR</option>
             <option>EUR</option>

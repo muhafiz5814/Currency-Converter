@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, StrictMode} from "react";
 import CurrencyInput from "./components/currencyInput";
 
 class App extends Component {
@@ -10,10 +10,14 @@ class App extends Component {
   }
 
   render() {
-    return <div className="currency-converter">
-       <CurrencyInput />
-       <CurrencyInput />
-    </div>;
+    return (
+      <div className="currency-converter">
+        <StrictMode>
+          <CurrencyInput symbol={this.state.from} selectSymbol={sym => this.setState({from: sym})}/>
+          <CurrencyInput symbol={this.state.to} selectSymbol={sym => this.setState({to: sym})}/>
+        </StrictMode>
+      </div>
+    )
   }
 }
 
