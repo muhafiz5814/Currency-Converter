@@ -1,6 +1,6 @@
 import React from "react";
 
-const CurrencyInput = ({symbol, selectSymbol}) => {
+const CurrencyInput = ({symbol, selectSymbol, amount, selectAmount}) => {
   return (
     <>
       <div className="field">
@@ -22,6 +22,8 @@ const CurrencyInput = ({symbol, selectSymbol}) => {
           <input 
             type="number"
             className="number-input"
+            value={amount}
+            onChange={evt => selectAmount(evt.target.value)}
           />
         </div>
       </div>
